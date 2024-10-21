@@ -1,5 +1,6 @@
 import React from 'react';
-
+//link
+import {Link} from 'react-scroll'
 //images
 import logo from'../assets/logo.svg'
 const Header = () => {
@@ -10,9 +11,17 @@ const Header = () => {
         <a href='#'>
           <img src={logo} alt=''/>
         </a>
-        <button className='btn btn-sm '>
-          Work with me 
-        </button>
+        
+         <Link
+          activeClass='active' 
+          smooth= {true}
+          spy={true}
+           to='contact'>
+            <button className='btn btn-sm '>
+          Work with me
+          </button>
+          </Link>  
+        
       </div>
     </div>
   </div>;
