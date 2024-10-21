@@ -3,7 +3,11 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 // variant
 import { fadeIn } from '../variants';
-import emailjs from 'emailjs-com'; // Import EmailJS
+ // Import EmailJS
+ import emailjs from 'emailjs-com';
+ //tostify
+ import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Contact = () => {
   // State to hold form data
@@ -21,16 +25,19 @@ const Contact = () => {
   // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault(); // Prevent default form submission behavior
-
-    emailjs.send('service_5rdo5ay', 'template_zmnee4e', formData, 'vI07VkkLcZyXg0BYi')
-      .then((response) => {
-        console.log('Email successfully sent!', response.status, response.text);
-        // Optionally reset form data after successful submission
-        setFormData({ name: '', email: '', message: '' });
-        // Optionally show a success message to the user
-      }, (err) => {
-        console.error('Failed to send email. Error: ', err);
-      });
+    emailjs.send('service_5rdo5ay', 'template_zmnee4e', {
+      from_name: formData.name,
+      from_email: formData.email,
+      message: formData.message,
+    }, 'vI07VkkLcZyXg0BYi')
+    .then((response) => {
+      toast.success('Message sent successfully!');
+      setFormData({ name: '', email: '', message: '' });
+    }, (err) => {
+      toast.error('Failed to send message. Please try again.');
+      console.error('Failed to send email. Error: ', err);
+    });
+    
   };
 
   return (
@@ -51,7 +58,7 @@ const Contact = () => {
           </motion.div>
           {/* form */}
           <motion.form 
-            onSubmit={handleSubmit} // Add this line
+            onSubmit={handleSubmit}
             variants={fadeIn('left', 0.3)}
             initial='hidden'
             whileInView={'show'}
@@ -89,6 +96,19 @@ const Contact = () => {
           </motion.form>
         </div>
       </div>
+       {/* Toast notifications */} 
+       <ToastContainer
+position="top-right"
+autoClose={5000}
+hideProgressBar
+newestOnTop={false}
+closeOnClick
+rtl={false}
+pauseOnFocusLoss
+draggable
+pauseOnHover
+theme="colored"
+/>
     </section>
   );
 };
