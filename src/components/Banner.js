@@ -9,6 +9,7 @@ import {TypeAnimation} from 'react-type-animation';
 import {motion} from 'framer-motion'
 //variants
 import {fadeIn} from '../variants'
+import { Link } from 'react-scroll';
 const Banner = () => {
   return (
   <section className='min-h-[85vh] lg:min-h-[78vh] flex items-center' id='home'>
@@ -58,9 +59,22 @@ const Banner = () => {
          whileInView={'show'}
          viewport={{once: false, amount: 0.7}}  
          className='flex max-w-max gap-x-6 items-center mb-12 mx-auto lg:mx-0'>
+          <Link
+          activeClass='active' 
+          smooth= {true}
+          spy={true}
+           to='contact' >
           <button className='btn btn-lg'>Contact me</button>
-          <a href='#' className='text-gradient btn-link'>My portfolio
-          </a>
+          </Link>
+          <Link
+          
+          activeClass='active' 
+          smooth= {true}
+          spy={true}
+           to='home'
+          className='text-gradient btn-link'>
+            <button>My portfolio</button>
+          </Link>
         </motion.div>
         {/*social */}
         <motion.div
